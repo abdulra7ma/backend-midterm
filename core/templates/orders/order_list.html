@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <div class="container">
         <h1>Order List</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Customer Name</th>
@@ -16,11 +16,16 @@
             <tbody>
                 {% for order in orders %}
                     <tr>
+                        <a href="{% url 'orders-list' %}">
+                            <td>{{ order.id }}</td>
+                        </a>
                         <td>{{ order.product_name }}</td>
                         <td>{{ order.quantity }}</td>
                         <td>{{ order.customer_name }}</td>
                         <td>{{ order.customer_email }}</td>
                         <td>{{ order.order_date }}</td>
+                        <td><a class="btn btn-primary" href="{% url 'order-update' order.id %}">Update</a></td>
+                        <td><a class="btn btn-danger" href="{% url 'order-delete' order.id %}">Delete</a></td>
                     </tr>
                 {% empty %}
                     <tr>

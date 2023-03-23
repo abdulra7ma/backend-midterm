@@ -1,7 +1,9 @@
-<!-- order_create.html -->
-<h1>Create an Order</h1>
+{% extends 'base.html' %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
+{% endblock content%}
