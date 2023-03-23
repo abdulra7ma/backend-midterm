@@ -1,42 +1,39 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import (CreateView, DeleteView, ListView,
+                                  TemplateView, UpdateView)
 
 from .forms import OrderForm
 from .models import Order
 
 
-def order_create(request):
-    if request.method == "POST":
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("orders-list")
-    else:
-        form = OrderForm()
-    return render(request, "orders/order_create.html", {"form": form})
+class OrderCreateView(CreateView):
+    model = Order
+    form_class = OrderForm
+    template_name = "orders/order_create.html"
+    success_url = reverse_lazy("orders-list")
 
 
-def order_created(request):
-    return render(request, "orders/order_created.html")
+class OrderCreatedView(TemplateView):
+    template_name = "orders/order_created.html"
 
 
-def order_list(request):
-    orders = Order.objects.all()
-    return render(request, "orders/order_list.html", {"orders": orders})
+class OrderListView(ListView):
+    model = Order
+    template_name = "orders/order_list.html"
+    context_object_name = "orders"
 
 
-def order_update(request, pk):
-    order = get_object_or_404(Order, pk=pk)
-    if request.method == "POST":
-        form = OrderForm(request.POST, instance=order)
-        if form.is_valid():
-            form.save()
-            return redirect("orders-list")
-    else:
-        form = OrderForm(instance=order)
-    return render(request, "orders/order_update.html", {"form": form})
+class OrderUpdateView(UpdateView):
+    model = Order
+    form_class = OrderForm
+    template_name = "orders/order_update.html"
+    success_url = reverse_lazy("orders-list")
 
 
-def order_delete(request, pk):
-    order = get_object_or_404(Order, pk=pk)
-    order.delete()
-    return redirect('orders-list')
+class OrderDeleteView(DeleteView):
+    model = Order
+    template_name = "orders/order_delete.html"
+    success_url = reverse_lazy("orders-list")
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)

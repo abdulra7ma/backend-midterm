@@ -4,9 +4,9 @@ from django.urls import include, path
 from order import views
 
 urlpatterns = [
-    path("create", views.order_create, name="order-create"),
-    path("", views.order_list, name="orders-list"),
-    path("<int:pk>/update", views.order_update, name="order-update"),
-    path('<int:pk>/delete', views.order_delete, name='order-delete'),
+    path("create", views.OrderCreatedView.as_view(), name="order-create"),
+    path("", views.OrderListView.as_view(), name="orders-list"),
+    path("<int:pk>/update", views.OrderUpdateView.as_view(), name="order-update"),
+    path('<int:pk>/delete', views.OrderDeleteView.as_view(), name='order-delete'),
 
 ]
