@@ -1,13 +1,65 @@
-# GitHub Codespaces ♥️ Django
+# Backend Midterm Project - Orders RESTAPI CRUD 
 
-Welcome to your shiny new Codespace running Django! We've got everything fired up and running for you to explore Django.
+## Prerequisites
+* Python3 installed
+* Run postgres Instance on port `5432`
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## ScreenShots
+![ScreenShot](backend_midterm_ss/homepage.png)
+![ScreenShot](backend_midterm_ss/create_order.png)
+![ScreenShot](backend_midterm_ss/update_order.png)
+![ScreenShot](backend_midterm_ss/login.png)
+![ScreenShot](backend_midterm_ss/register.png)
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+## Setup
+1. Clone the repository:
+```bash
+git clone https://github.com/abdulra7ma/backend-midterm.git
+```
+2. create virtual environment 
+``` bash
+python3 -m venv venv
+```
 
-To run this application:
-
-```python
+3. activate environment
+```bash
+source venv/bin/activate
+```
+4. Install the required packages:
+``` bash
+pip install -r requirements.txt
+```
+5. Run the migrations
+``` bash
+python manage.py migrate
+```
+6. create a superuser
+```bash
+python manage.py createsuperuser
+```
+7. start the server
+```
 python manage.py runserver
+```
+
+## Usage
+To access the application, open your web browser and navigate to http://localhost:8000/.
+
+### Endpoints
+* /login/ - The login page.
+* /register/ - The registration page.
+* /orders/ - The list of all orders in the database.
+* /orders/create/ - The page to create a new order.
+* /orders/`<pk>`/update/ - The page to update an existing order.
+* /orders/`<pk>`/delete/ - The page to delete an existing order
+
+## Database
+* Default database for this project is `Postgres`, but if it's not setup locally then we gonna user `sqlite` instead
+* in order to use postgres for this project you should have a running instance of postgres locally, and then you should update the `.env` file with your configration
+```file
+POSTGRES_DB=
+POSTGRES_PASSWORD=
+POSTGRES_USER=
+POSTGRES_PORT=
+POSTGRES_HOST=
 ```
